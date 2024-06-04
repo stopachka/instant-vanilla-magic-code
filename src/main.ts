@@ -30,6 +30,10 @@ function renderLoggedInPage(user: User) {
 }
 
 function renderSignInPage() {
+  const googAuthURI = db.auth.createAuthorizationURL({
+    clientName: "google-web",
+    redirectURL: window.location.href,
+  });
   appEl.innerHTML = `
     <div>
       <form id='email-input-form'>
@@ -41,6 +45,8 @@ function renderSignInPage() {
         <input type='email' name='email' placeholder='Email' />
         <button type='submit'>Send code</button>
       </form>
+      <div>
+      Or, <a href="${googAuthURI}">Sign in with Google</a>
     </div>
   `;
   const formEl = document.querySelector<HTMLFormElement>("#email-input-form")!;
